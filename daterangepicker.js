@@ -1126,7 +1126,9 @@
                 target.closest(this.container).length ||
                 target.closest('.calendar-table').length
                 ) return;
-            this.hide();
+            this.container.removeClass('show-calendar');
+            this.element.trigger('hideCalendar.daterangepicker', this);
+            setTimeout(this.hide.bind(this), 0);
         },
 
         showCalendars: function() {
@@ -1356,6 +1358,8 @@
             this.endDate = this.oldEndDate;
             this.hide();
             this.element.trigger('cancel.daterangepicker', this);
+            this.container.removeClass('show-calendar');
+            this.element.trigger('hideCalendar.daterangepicker', this);
         },
 
         monthOrYearChanged: function(e) {
